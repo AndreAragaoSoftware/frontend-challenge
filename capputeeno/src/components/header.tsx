@@ -18,7 +18,7 @@ const TagHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 34px 160px;
 
   > div {
     display: flex;
@@ -27,7 +27,6 @@ const TagHeader = styled.header`
     gap: 24px;
   }
 
-  // O Props está no default-proders.tsx
   @media (min-width: ${(props) => props.theme.desktopBreakpoint}) {
     padding: 20px 160px;
   }

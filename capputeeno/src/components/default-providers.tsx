@@ -1,28 +1,26 @@
-"use client"
+'use client'
 
 import { FilterContextProvider } from '@/contexts/filter-context'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import { useMemo, ReactNode } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactNode } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 interface DefaultProvidersProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const theme = {
-  desktopBreakpoint: "968px",
-  tableBreakpoint: "768px"
+  desktopBreakpoint: '968px',
+  tableBreakpoint: '768px',
 }
 
 export function DefaultProviders({ children }: DefaultProvidersProps) {
-    const client = useMemo(() => new QueryClient(), [])
-    return (
-        <QueryClientProvider client={client}>
-          <FilterContextProvider>
-            <ThemeProvider theme={theme}>
-              {children}
-            </ThemeProvider>
-          </FilterContextProvider>
-        </QueryClientProvider>
-    )
+  const client = new QueryClient()
+  return (
+    <QueryClientProvider client={client}>
+      <FilterContextProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </FilterContextProvider>
+    </QueryClientProvider>
+  )
 }
