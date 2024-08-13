@@ -20,7 +20,7 @@ const FilterList = styled.ul`
 const FilterItem = styled.li<FilterItemProps>`
   font-family: inherit;
   font-weight: ${(props) =>
-  props.selected ? '600' : '400'}; // Caso selecionado 600
+    props.selected ? '600' : '400'}; // Caso selecionado 600
   font-size: 12px;
   line-height: 18px;
   text-align: center;
@@ -33,6 +33,11 @@ const FilterItem = styled.li<FilterItemProps>`
     props.selected
       ? '4px solid var(--orange-low);'
       : ''}; // Caso o item esteja selecionado, retorna esse borda
+
+  @media (min-width: ${(props) => props.theme.desktopBreakpoint}) {
+    font-size: 16px;
+    line-height: 22px;
+  }
 `
 
 export function FilterBarType() {
