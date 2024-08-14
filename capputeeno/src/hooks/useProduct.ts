@@ -23,7 +23,8 @@ export function useProduct(id: string){
     const { data } = useQuery({
         queryFn: () => fetcher(id),
         queryKey: ['product', id],
-        enabled: !!id // Só dispara a requisição caso tenha o id
+        enabled: !!id, // Só dispara a requisição caso tenha o id
+        staleTime: 1000 * 60 * 5 // Por quanto tempo a requisição é válida, diminui a quantidade de requisições
     })
 
     return {
