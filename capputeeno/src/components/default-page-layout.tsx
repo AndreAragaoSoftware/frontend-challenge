@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import styled from "styled-components"
+import { styled } from 'styled-components'
 
 export const DefaultPageLayout = styled.div`
-  padding: 34px 160px;
+  padding: 12px 24px;
   min-height: 100vh;
   background-color: var(--bg-primary);
 
-  @media (max-width: ${(props) => props.theme.desktopBreakpoint}) {
-    padding: 12px 24px;
+  @media (min-width: ${(props) => props.theme.desktopBreakpoint}) {
+    padding: 34px 160px;
   }
 `
