@@ -8,6 +8,11 @@ export interface Product {
   category?: string
 }
 
+// Criada para pegar quantidade dos produtos
+export interface ProductInCart extends Product {
+  quantity: number
+}
+
 export interface ProductFretchResponse {
   data: {
     Product: Product
