@@ -1,13 +1,14 @@
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { CartIcon } from "./icons/cart-icon";
-import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { CartIcon } from './icons/cart-icon'
+import styled from 'styled-components'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const CartCount = styled.span`
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
   border-radius: 100%;
-  padding: 0 5px;
+  padding: 3px 5px;
   font-size: 10px;
 
   background-color: var(--delete-color);
@@ -17,24 +18,31 @@ const CartCount = styled.span`
 `
 
 const Container = styled.button`
-    position: relative;
-    cursor: pointer;
-    border: none;
-    background: transparent;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: transparent;
 `
 
 export function CartControl() {
   const router = useRouter()
-    const { value } = useLocalStorage('cart-items', [])
+  const { value: cartItems } = useLocalStorage('cart-items', [])
+  const [isClient, setIsClient] = useState(false)
 
-    const handleNavigateToCart = () => {
-      router.push('/cart')
-    }
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
-    return (
-      <Container onClick={handleNavigateToCart}>
-        <CartIcon />
-        {value.length > 0 && <CartCount>{value.length}</CartCount>}
-      </Container>
-    )
+  const handleNavigateToCart = () => {
+    router.push('/cart')
+  }
+
+  return (
+    <Container onClick={handleNavigateToCart}>
+      <CartIcon />
+      {isClient && cartItems.length > 0 && (
+        <CartCount>{cartItems.length}</CartCount>
+      )}
+    </Container>
+  )
 }

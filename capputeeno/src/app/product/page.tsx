@@ -6,6 +6,7 @@ import { BagIcon } from '@/components/icons/bag-icon'
 import { useProduct } from '@/hooks/useProduct'
 import { formatPrice } from '@/utils/format-price'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 
 interface ProductProps {}
 
@@ -107,10 +108,17 @@ const ProductInfo = styled.div`
   
 `
 
-export default function Product({ searchParams }: { searchParams: { id: string} }) {
-  const { data } = useProduct(searchParams.id)
- 
+export default function Product({
+  searchParams,
+}: {
+  searchParams: { id: string }
+}) {
+  const { data } = useProduct(searchParams.id) // Usa o hook useProduct para buscar os dados do produto
+  
+
   const handleAddToCart = () => {
+    if (!data) return // Garante que os dados do produto estejam disponíveis
+
     let cartItems = localStorage.getItem('cart-items')
     if (cartItems) {
       let cartItemsArray = JSON.parse(cartItems)
@@ -120,13 +128,19 @@ export default function Product({ searchParams }: { searchParams: { id: string} 
       )
 
       if (existingProductIndex != -1) {
+        // Se o produto já existe no carrinho, apenas incrementa a quantidade
         cartItemsArray[existingProductIndex].quantity += 1
       } else {
+        // Se o produto não existe no carrinho, adiciona-o e recarrega a página suavemente
         cartItemsArray.push({ ...data, quantity: 1, id: searchParams.id })
+        localStorage.setItem('cart-items', JSON.stringify(cartItemsArray))
+        // Navegação suave para a mesma rota
+        return
       }
 
       localStorage.setItem('cart-items', JSON.stringify(cartItemsArray))
     } else {
+      // Se não há itens no carrinho, cria um novo carrinho com o item
       const newCart = [{ ...data, quantity: 1, id: searchParams.id }]
       localStorage.setItem('cart-items', JSON.stringify(newCart))
     }

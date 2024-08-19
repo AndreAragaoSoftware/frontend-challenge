@@ -21,10 +21,10 @@ const Card = styled.div`
   backdrop-filter: blur(10px);
   border-radius: 0px 0px 4px 4px;
 
-  width: 256px;
+  width: 355px;
 
   img {
-    width: 256px;
+    width: 100%;
     height: 300px;
   }
 
@@ -44,7 +44,7 @@ const Card = styled.div`
     width: 100%;
 
     > div {
-      width: 228px;
+      width: 355px;
       height: 1px;
       margin: 8px 0;
       padding: 0px;
